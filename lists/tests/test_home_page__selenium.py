@@ -2,7 +2,7 @@ from django.test import LiveServerTestCase
 from selenium import webdriver
 
 
-class LiveServerTests(LiveServerTestCase):
+class HomePageLiveServerTests(LiveServerTestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -16,6 +16,9 @@ class LiveServerTests(LiveServerTestCase):
         cls.selenium.quit()
         super().tearDownClass()
 
-    def test_setup_is_correct(self):
+    def tearDown(self):
+        self.selenium.refresh()
+
+    def test_page_title(self):
         self.selenium.get(self.url)
-        self.assertEquals('Not Found', self.selenium.title)
+        self.assertEqual('Your To-Do list', self.selenium.title)
