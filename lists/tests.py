@@ -9,6 +9,7 @@ class LiveServerTests(LiveServerTestCase):
         super().setUpClass()
         cls.selenium = webdriver.Firefox()
         cls.selenium.maximize_window()
+        cls.url = cls.live_server_url
 
     @classmethod
     def tearDownClass(cls):
@@ -16,5 +17,5 @@ class LiveServerTests(LiveServerTestCase):
         super().tearDownClass()
 
     def test_setup_is_correct(self):
-        self.selenium.get('http://localhost:8000/')
-        self.assertEquals('Page not found at /', self.selenium.title)
+        self.selenium.get(self.url)
+        self.assertEquals('Not Found', self.selenium.title)
